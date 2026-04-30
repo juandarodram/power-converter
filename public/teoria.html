@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teoría</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 🔐 PROTECCIÓN -->
+<script>
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "index.html";
+}
+</script>
+
+<h1>Teoría del Convertidor Boost</h1>
+
+<p>
+El convertidor Boost es un circuito que eleva el voltaje de entrada mediante
+un interruptor, un inductor y un diodo.
+</p>
+
+<button onclick="volver()">Volver</button>
+<button onclick="logout()">Cerrar sesión</button>
+
+<script>
+function volver() {
+    window.location.href = "home.html";
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

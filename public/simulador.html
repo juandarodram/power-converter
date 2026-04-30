@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador DC/DC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 🔐 PROTECCIÓN -->
+<script>
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "index.html";
+}
+</script>
+
+<h1>Simulador DC/DC</h1>
+
+<div>
+    <input type="number" id="vin" placeholder="Voltaje de entrada (Vin)">
+    <input type="number" step="0.01" id="duty" placeholder="Duty (0 - 1)">
+    <button onclick="calcular()">Calcular</button>
+</div>
+
+<h2 id="resultado"></h2>
+
+<br>
+<button onclick="volver()">Volver</button>
+<button onclick="logout()">Cerrar sesión</button>
+
+<script>
+async function calcular() {
+    const vin = parseFloat(document.getElementById("vin").value);
+    const duty = parseFloat(document.getElementById("duty").value);
+
+    try {
+        const res = await fetch("/calculate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json" ,
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({ vin, duty })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+            document.getElementById("resultado").innerText = data.error;
+        } else {
+            document.getElementById("resultado").innerText =
+                `Vout: ${data.vout} V | Estado: ${data.estado}`;
+        }
+
+    } catch (error) {
+        document.getElementById("resultado").innerText = "Error conectando con el servidor";
+    }
+}
+
+function volver() {
+    window.location.href = "home.html";
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

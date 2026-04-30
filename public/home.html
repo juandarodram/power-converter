@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto Convertidor DC/DC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 🔐 PROTECCIÓN -->
+<script>
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "index.html";
+}
+</script>
+
+<header>
+    <h1>Convertidor DC/DC</h1>
+    <p>Simulación y análisis de convertidores de potencia</p>
+</header>
+
+<nav>
+    <button onclick="ir('simulador.html')">Simulador</button>
+    <button onclick="ir('teoria.html')">Teoría</button>
+    <button onclick="logout()">Cerrar sesión</button>
+</nav>
+
+<section>
+    <h2>Introducción</h2>
+    <p>
+        Este proyecto consiste en el desarrollo de un simulador de convertidores DC/DC,
+        permitiendo analizar el comportamiento de sistemas como Boost, Buck y Buck-Boost.
+    </p>
+
+    <h3>Objetivos</h3>
+    <ul>
+        <li>Modelar matemáticamente convertidores</li>
+        <li>Visualizar resultados en tiempo real</li>
+        <li>Facilitar el aprendizaje en electrónica de potencia</li>
+    </ul>
+</section>
+
+<footer>
+    <p>Proyecto universitario - Electrónica de Potencia</p>
+</footer>
+
+<script>
+function ir(pagina) {
+    window.location.href = pagina;
+}
+
+function logout() {
+    localStorage.removeItem("token"); // 🔥 elimina token
+    window.location.href = "index.html"; // vuelve al login
+}
+</script>
+
+</body>
+</html>

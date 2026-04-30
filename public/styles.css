@@ -1,0 +1,40 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f4f4;
+}
+
+header {
+    background: #0d47a1;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    background: #1976d2;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d47a1;
+}
+
+section {
+    padding: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #ddd;
+}
