@@ -2,45 +2,40 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="login-page">
 
 <div class="login-container">
-    <form onsubmit="login(event)">
-        <h1 class="title">Convertidor de Potencia</h1>
-        <p class="subtitle">Accede al sistema</p>
+    <form onsubmit="register(event)">
+        <h1 class="title">Crear cuenta</h1>
 
         <input type="text" id="username" placeholder="Usuario" required>
         <input type="password" id="password" placeholder="Contraseña" required>
 
-        <button type="submit" id="btnLogin">Ingresar</button>
+        <button type="submit" id="btnRegister">Registrarse</button>
 
         <p id="mensaje"></p>
     </form>
-        <p>
-        ¿No tienes cuenta? 
-        <a href="register.html">Regístrate aquí</a>
-        </p>
 </div>
 
 <script>
-async function login(e) {
+async function register(e) {
     e.preventDefault();
 
-    const btn = document.getElementById("btnLogin");
+    const btn = document.getElementById("btnRegister");
     const mensaje = document.getElementById("mensaje");
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    btn.innerText = "Ingresando...";
+    btn.innerText = "Creando...";
     btn.disabled = true;
     mensaje.innerText = "";
 
     try {
-        const res = await fetch("/login", {
+        const res = await fetch("http://127.0.0.1:8000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -50,27 +45,21 @@ async function login(e) {
 
         const data = await res.json();
 
-        if (data.access_token) {
-            localStorage.setItem("token", data.access_token);
-            window.location.href = "home.html";
+        if (res.ok) {
+            mensaje.innerText = "Usuario creado ✅";
+            setTimeout(() => {
+                window.location.href = "index.html?registered=true";
+            }, 1500);
         } else {
-            mensaje.innerText = "Credenciales incorrectas";
+            mensaje.innerText = data.detail || "Error al registrar";
         }
 
     } catch (error) {
         mensaje.innerText = "Error de conexión";
     }
 
-    btn.innerText = "Ingresar";
+    btn.innerText = "Registrarse";
     btn.disabled = false;
-}
-</script>
-
-<script>
-const params = new URLSearchParams(window.location.search);
-
-if (params.get("registered") === "true") {
-    document.getElementById("mensaje").innerText = "Cuenta creada, inicia sesión";
 }
 </script>
 

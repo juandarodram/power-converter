@@ -16,7 +16,26 @@ if (!token) {
 }
 </script>
 
+<script>
+async function cargarUsuario() {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("/perfil", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    const data = await res.json();
+
+    document.getElementById("usuario").innerText = "Bienvenido " + data.usuario;
+}
+
+cargarUsuario();
+</script>
+
 <header>
+    <h2 id="usuario"></h2>
     <h1>Convertidor DC/DC</h1>
     <p>Simulación y análisis de convertidores de potencia</p>
 </header>
@@ -43,7 +62,7 @@ if (!token) {
 </section>
 
 <footer>
-    <p>Proyecto universitario - Electrónica de Potencia</p>
+    <p>Proyecto universitario - Electrónica de Potencia II</p>
 </footer>
 
 <script>
